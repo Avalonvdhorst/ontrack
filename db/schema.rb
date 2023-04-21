@@ -10,9 +10,64 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_073207) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_20_040546) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "total_score", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "frequencies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "goal_categories", force: :cascade do |t|
+    t.bigint "goal_id", null: false
+    t.bigint "category_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_goal_categories_on_category_id"
+    t.index ["goal_id"], name: "index_goal_categories_on_goal_id"
+  end
+
+  create_table "goal_occurences", force: :cascade do |t|
+    t.bigint "goal_id", null: false
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goal_id"], name: "index_goal_occurences_on_goal_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.integer "occurence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "frequency_id"
+    t.index ["frequency_id"], name: "index_goals_on_frequency_id"
+  end
+
+  create_table "sub_goals", force: :cascade do |t|
+    t.bigint "goal_id", null: false
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "status"
+    t.integer "occurence"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goal_id"], name: "index_sub_goals_on_goal_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +81,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_073207) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "goal_categories", "categories"
+  add_foreign_key "goal_categories", "goals"
+  add_foreign_key "goal_occurences", "goals"
+  add_foreign_key "goals", "frequencies"
+  add_foreign_key "sub_goals", "goals"
 end

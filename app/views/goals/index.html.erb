@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="goals-container">
+    <% @goals.each do |goal| %>
+      <div style="background-color: <%= Goal::COLORS[goal.id % Goal::COLORS.length] %>;" class="goal-item">
+        <% if !goal.occurence.nil?%>
+          <div class="goal-item-date">
+            <div class="rotate-goal">
+              <i class="fa-solid fa-rotate"></i>
+            </div>
+          </div>
+        <% else %>
+          <div class="goal-item-date">
+            <p class="week-day-date"><%= goal.end_date.strftime("%^a") %></p>
+            <p class="day-date"><%= goal.end_date.strftime("%-d") %></p>
+          </div>
+        <% end %>
+        <div class="goal-options">
+          <i class="fa-solid fa-plus"></i>
+          <i class="fa-solid fa-wand-magic"></i>
+        </div>
+        <div class="goal-item-name">
+          <p class="goal-name"><%= goal.name %></p>
+        </div>
+        <div class="goal-categories">
+          <% goal.goal_categories.each do |goal_category| %>
+            <div class="goal-category">
+              <p class="gc-score"> + <%= goal_category.score %></p>
+              <p><%= goal_category.category.name %></p>
+            </div>
+          <% end %>
+        </div>
+        <div class="progress" id="spinner">
+          <i class="fa-solid fa-spinner"></i>
+        </div>
+        <div class="progress d-none" id="check-mark">
+          <i class="fa-solid fa-check"></i>
+        </div>
+      </div>
+      <% if !goal.sub_goals.nil? %>
+        <div class="sub-goals">
+          <% goal.sub_goals.each do |sub_goal| %>
+            <div style="background-color: #D8F5D9;" class="goal-item sub-goal-item">
+              <% if !goal.occurence.nil?%>
+                <div class="goal-item-date">
+                  <div class="rotate-goal">
+                    <i class="fa-solid fa-rotate"></i>
+                  </div>
+                </div>
+              <% else %>
+                <div class="goal-item-date sub-goal-date">
+                  <p class="week-day-date"><%= sub_goal.end_date.strftime("%^a") %></p>
+                  <p class="day-date sub-day-date"><%= sub_goal.end_date.strftime("%-d") %></p>
+                </div>
+              <% end %>
+              <div class="goal-item-name sub-goal-name">
+                <p class="goal-name"><%= sub_goal.name %></p>
+              </div>
+              <div class="progress sub-progress" id="spinner">
+                <i class="fa-solid fa-spinner"></i>
+              </div>
+              <div class="progress d-none sub-progress" id="check-mark">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
