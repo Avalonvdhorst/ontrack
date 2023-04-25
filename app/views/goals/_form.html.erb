@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row justify-content-center my-5">
+    <div class="col-12 col-lg-6">
+      <%= simple_form_for(@goal) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :end_date, as: :date, html5: true %>
+        <%= f.input :occurence, as: :integer %>
+        <%= f.association :frequency %>
+
+        <%= f.fields_for :category do |category| %>
+          <%= category.input :name, collection: Category.all, include_blank: false %>
+          <%= category.input :custom_name, label: false %>
+        <% end %>
+        <%= f.fields_for :goal_category do |category| %>
+          <%= category.input :score, as: :integer %>
+        <% end %>
+        <div data-controller="category">
+          <%= button_tag "Add Field", type: "button", data: { turbo_frame: "category", turbo_action: "append", action: "click->category#add" } %>
+          <div data-category-target="field" class="d-none">
+            <turbo-frame id="category">
+              <%= f.fields_for :category do |category| %>
+                <%= render "category", f: category %>
+              <% end %>
+            </turbo-frame>
+          </div>
+        </div>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+</div>

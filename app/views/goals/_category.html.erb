@@ -1,0 +1,7 @@
+<div class="category-field">
+  <%= f.input :name, collection: Category.all, include_blank: false %>
+  <%= f.input :custom_name, label: false %>
+  <%= f.fields_for :goal_category do |category| %>
+    <%= category.input :score, as: :integer %>
+  <% end %>
+</div>

@@ -15,8 +15,8 @@
           </div>
         <% end %>
         <div class="goal-options">
-          <i class="fa-solid fa-plus"></i>
-          <i class="fa-solid fa-wand-magic"></i>
+          <%= link_to '<i class="fa-solid fa-plus"></i>'.html_safe, new_goal_sub_goal_path(goal) %>
+          <%= link_to '<i class="fa-solid fa-wand-magic"></i>'.html_safe, edit_goal_path(goal) %>
         </div>
         <div class="goal-item-name">
           <p class="goal-name"><%= goal.name %></p>
@@ -36,7 +36,7 @@
           <i class="fa-solid fa-check"></i>
         </div>
       </div>
-      <% if !goal.sub_goals.nil? %>
+      <% if !goal.sub_goals.empty? %>
         <div class="sub-goals">
           <% goal.sub_goals.each do |sub_goal| %>
             <div style="background-color: #D8F5D9;" class="goal-item sub-goal-item">

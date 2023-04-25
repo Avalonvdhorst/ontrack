@@ -1,0 +1,2 @@
+class SubGoalsController < ApplicationController
+end
