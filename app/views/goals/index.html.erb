@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="goals-container">
+  <div class="goals-container" data-controller="checkmark">
     <% @goals.each do |goal| %>
       <div style="background-color: <%= Goal::COLORS[goal.id % Goal::COLORS.length] %>;" class="goal-item">
         <% if !goal.occurence.nil?%>
@@ -29,12 +29,20 @@
             </div>
           <% end %>
         </div>
-        <div class="progress" id="spinner">
-          <i class="fa-solid fa-spinner"></i>
-        </div>
-        <div class="progress d-none" id="check-mark">
-          <i class="fa-solid fa-check"></i>
-        </div>
+        <% if goal.status != "completed" %>
+          <div data-goal-id="<%= goal.id %>">
+            <div class="progress" id="spinner" data-action="click->checkmark#check">
+              <i class="fa-solid fa-spinner"></i>
+            </div>
+            <div id="check-mark" data-checkmark-target="checkmark" class="progress d-none" >
+              <i class="fa-solid fa-check"></i>
+            </div>
+          </div>
+        <% else %>
+          <div class="progress" >
+            <i class="fa-solid fa-check"></i>
+          </div>
+        <% end %>
       </div>
       <% if !goal.sub_goals.empty? %>
         <div class="sub-goals">

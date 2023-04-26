@@ -1,4 +1,6 @@
 class GoalsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @goals = Goal.all
   end
@@ -8,6 +10,7 @@ class GoalsController < ApplicationController
   end
 
   def create
+    raise
     @goal = Goal.new(goal_params)
     if params[:goal][:frequency_id] != ""
       @goal.frequency_id = Frequency.find(params[:goal][:frequency_id].to_i).id
@@ -18,6 +21,13 @@ class GoalsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def update_status
+    @goal = Goal.find(params[:id])
+    @goal.update(status: 'completed')
+
+    head :no_content
   end
 
   private

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   resources :goals do
+    patch 'update_status', on: :member
     resources :sub_goals
   end
 end

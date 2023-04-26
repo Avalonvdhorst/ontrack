@@ -4,9 +4,7 @@ export default class extends Controller {
   static targets = ["field"]
 
   add() {
-    this.fieldTarget.classList.remove("d-none");
-
-    // const html = "<%= escape_javascript(render partial: 'field', locals: { f: form_builder }) %>"
-    // this.fieldTarget.insertAdjacentHTML("beforeend", html)
+    const form_html = this.fieldTargets[this.fieldTargets.length - 1].outerHTML
+    this.fieldTargets[this.fieldTargets.length - 1].insertAdjacentHTML("afterend", form_html)
   }
 }
