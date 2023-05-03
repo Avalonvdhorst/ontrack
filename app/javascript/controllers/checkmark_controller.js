@@ -7,15 +7,12 @@ export default class extends Controller {
     event.currentTarget.nextElementSibling.classList.remove("d-none")
     event.currentTarget.classList.add("d-none");
     const goalId = event.currentTarget.parentElement.dataset.goalId
-    // Make an AJAX request to update the model's status attribute
-    // fetch(`/models/${modelId}/update_status`, {
-    //   method: "PUT",
-      // headers: {
-      //   "Content-Type": "application/json",
-      //   "X-CSRF-Token": Rails.csrfToken() // If you're using Rails' built-in CSRF protection
-      // },
-    //   body: JSON.stringify({ status: "completed" })
-    // })
-    fetch(`/goals/${goalId}/update_status`, { method: 'PATCH' });
+    const subGoalId = event.currentTarget.parentElement.dataset.subGoalId
+    if (goalId) {
+      fetch(`/goals/${goalId}/update_status`, { method: 'PATCH' });
+    } else if (subGoalId) {
+      const parentId = event.currentTarget.parentElement.dataset.parentId
+      fetch(`/goals/${parentId}/sub_goals/${subGoalId}/update_status`, { method: 'PATCH' });
+    }
   }
 }

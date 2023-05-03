@@ -1,0 +1,73 @@
+.sticky-calendar {
+  position: sticky;
+  top: 150px;
+}
+
+.day-marked {
+  background-color: $light-yellow;
+  border-radius: 10px;
+  margin: 0px 7px;
+  transition: 0.3s ease-in-out;
+}
+
+.day-marked:hover {
+  background-color: #fff1a8;
+  font-weight: bold;
+}
+
+.current-day-marked {
+  border: 5px solid $orange;
+  font-weight: bold;
+}
+
+.calendar-day {
+  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-title {
+  color: orange;
+  font-size: 24px;
+  font-family: $headers-font;
+  font-weight: bold;
+}
+
+.calendar-heading i {
+  color: orange;
+  font-size: 24px;
+}
+
+.simple-calendar th {
+  border: none;
+  text-align: center;
+  color: $orange;
+  font-weight: 800;
+  padding-bottom: 24px;
+}
+
+.simple-calendar td {
+  border: none;
+  text-align: center;
+}
+
+.simple-calendar .prev-month {
+  background-color: white;
+  color: $light-gray
+}
+
+.simple-calendar .next-month {
+  background-color: white;
+  color: $light-gray;
+}
+
+.simple-calendar .day {
+ height: 55px;
+}
+
+.simple-calendar .today {
+  background-color: white;
+  color: $orange;
+  font-weight: bold;
+}

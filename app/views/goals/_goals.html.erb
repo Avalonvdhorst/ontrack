@@ -1,0 +1,125 @@
+<div class="col-12 col-lg-7" data-calendar-target="goals">
+  <% goals.each do |goal| %>
+    <div style="background-color: <%= Goal::COLORS[goal.id % Goal::COLORS.length] %>;" class="goal-item">
+      <% if !goal.occurence.nil?%>
+        <div class="goal-item-date">
+          <div class="rotate-goal">
+            <i class="fa-solid fa-rotate"></i>
+          </div>
+        </div>
+      <% else %>
+        <div class="goal-item-date">
+          <p class="week-day-date"><%= goal.end_date.strftime("%^a") %></p>
+          <p class="day-date"><%= goal.end_date.strftime("%-d") %></p>
+        </div>
+      <% end %>
+      <div class="goal-options">
+        <%= link_to '<i class="fa-solid fa-plus"></i>'.html_safe, new_goal_sub_goal_path(goal) %>
+        <%= link_to '<i class="fa-solid fa-wand-magic"></i>'.html_safe, edit_goal_path(goal) %>
+      </div>
+      <div class="goal-item-name">
+        <p class="goal-name"><%= goal.name %></p>
+      </div>
+      <div class="goal-categories">
+        <% goal.goal_categories.each do |goal_category| %>
+          <div class="goal-category">
+            <p class="gc-score"> + <%= goal_category.score %></p>
+            <p><%= goal_category.category.name %></p>
+          </div>
+        <% end %>
+      </div>
+      <% if goal.status != "completed" %>
+        <div data-goal-id="<%= goal.id %>">
+          <div class="progress" id="spinner" data-action="click->checkmark#check">
+            <i class="fa-solid fa-spinner"></i>
+          </div>
+          <div id="check-mark" data-checkmark-target="checkmark" class="progress d-none" >
+            <i class="fa-solid fa-check"></i>
+          </div>
+        </div>
+      <% else %>
+        <div class="progress" >
+          <i class="fa-solid fa-check"></i>
+        </div>
+      <% end %>
+    </div>
+    <% if !goal.sub_goals.empty? %>
+      <div class="sub-goals">
+        <% goal.sub_goals.each do |sub_goal| %>
+          <div style="background-color: #D8F5D9;" class="goal-item sub-goal-item">
+            <% if !goal.occurence.nil?%>
+              <div class="goal-item-date">
+                <div class="rotate-goal">
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+              </div>
+            <% else %>
+              <div class="goal-item-date sub-goal-date">
+                <p class="week-day-date"><%= sub_goal.end_date.strftime("%^a") %></p>
+                <p class="day-date sub-day-date"><%= sub_goal.end_date.strftime("%-d") %></p>
+              </div>
+            <% end %>
+            <div class="goal-item-name sub-goal-name">
+              <p class="goal-name"><%= sub_goal.name %></p>
+            </div>
+            <% if sub_goal.status != "completed" %>
+              <div data-sub-goal-id="<%= sub_goal.id %>" data-parent-id="<%= goal.id %>">
+                <div class="progress sub-progress" id="spinner" data-action="click->checkmark#check">
+                  <i class="fa-solid fa-spinner"></i>
+                </div>
+                <div id="check-mark" data-checkmark-target="checkmark" class="progress sub-progress d-none" >
+                  <i class="fa-solid fa-check"></i>
+                </div>
+              </div>
+            <% else %>
+              <div class="progress sub-progress">
+                <i class="fa-solid fa-check"></i>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <div>
+    <p>Your recurring habits:</p>
+    <% @habits.each do |goal| %>
+      <div style="background-color: <%= Goal::COLORS[goal.id % Goal::COLORS.length] %>;" class="goal-item">
+        <div class="goal-item-date">
+          <div class="rotate-goal">
+            <i class="fa-solid fa-rotate"></i>
+          </div>
+        </div>
+        <div class="goal-options">
+          <%= link_to '<i class="fa-solid fa-plus"></i>'.html_safe, new_goal_sub_goal_path(goal) %>
+          <%= link_to '<i class="fa-solid fa-wand-magic"></i>'.html_safe, edit_goal_path(goal) %>
+        </div>
+        <div class="goal-item-name">
+          <p class="goal-name"><%= goal.name %></p>
+        </div>
+        <div class="goal-categories">
+          <% goal.goal_categories.each do |goal_category| %>
+            <div class="goal-category">
+              <p class="gc-score"> + <%= goal_category.score %></p>
+              <p><%= goal_category.category.name %></p>
+            </div>
+          <% end %>
+        </div>
+        <% if goal.status != "completed" %>
+          <div data-goal-id="<%= goal.id %>">
+            <div class="progress" id="spinner" data-action="click->checkmark#check">
+              <i class="fa-solid fa-spinner"></i>
+            </div>
+            <div id="check-mark" data-checkmark-target="checkmark" class="progress d-none" >
+              <i class="fa-solid fa-check"></i>
+            </div>
+          </div>
+        <% else %>
+          <div class="progress" >
+            <i class="fa-solid fa-check"></i>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

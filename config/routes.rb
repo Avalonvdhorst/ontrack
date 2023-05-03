@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :goals do
     patch 'update_status', on: :member
-    resources :sub_goals
+    resources :sub_goals do
+      patch 'update_status', on: :member
+    end
   end
 end

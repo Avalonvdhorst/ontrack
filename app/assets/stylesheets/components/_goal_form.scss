@@ -1,0 +1,22 @@
+.form-header {
+  color: $orange;
+  margin-bottom: 60px;
+}
+
+#new_goal div {
+  padding-bottom: 24px;
+}
+
+#new_goal label {
+  font-weight: 500;
+}
+
+#new_goal input[type="text"] {
+  border: none;
+  border-bottom: 2px solid $light-yellow;
+}
+
+#new_goal input[type="number"] {
+  border: none;
+  border-bottom: 2px solid $light-yellow;
+}

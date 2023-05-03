@@ -1,7 +1,7 @@
 <%= f.fields_for :category do |category| %>
-  <%= f.input :name, collection: Category.all, include_blank: false %>
-  <%= f.input :custom_name, label: false %>
+  <%= f.input :id, collection: Category.all + [Category.new(name: "Custom")], include_blank: true, label: false %>
+  <%= f.input :name, label: false %>
   <%= f.fields_for :goal_category do |category| %>
-    <%= category.input :score, as: :integer %>
+    <%= category.input :score, as: :integer, label: false %>
   <% end %>
 <% end %>

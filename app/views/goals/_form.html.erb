@@ -1,21 +1,15 @@
-<div class="container">
-  <div class="row justify-content-center my-5">
-    <div class="col-12 col-lg-6">
-      <%= simple_form_for(@goal) do |f| %>
-        <%= f.input :name %>
-        <%= f.input :end_date, as: :date, html5: true %>
-        <%= f.input :occurence, as: :integer %>
-        <%= f.association :frequency %>
-        <div class="category-fields" data-controller="category">
-          <%= f.fields_for :category do |category| %>
-            <div data-category-target="field">
-              <%= render "category", f: category %>
-            </div>
-            <%= button_tag "Add Field", type: "button", data: { action: "click->category#add" } %>
-          <% end %>
-        </div>
-        <%= f.submit %>
-      <% end %>
-    </div>
+<%= simple_form_for(@goal) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :end_date, as: :date, html5: true %>
+  <%= f.input :occurence, as: :integer %>
+  <%= f.association :frequency %>
+  <div class="category-fields" data-controller="category">
+    <%= f.fields_for :categories do |category| %>
+      <div data-category-target="field">
+        <%= render "category", f: category %>
+      </div>
+      <%= button_tag "Add another category", type: "button", class: "secondary-btn bg-white", data: { action: "click->category#add" } %>
+    <% end %>
   </div>
-</div>
+  <%= f.submit "Create my goal", class: "primary-btn" %>
+<% end %>
